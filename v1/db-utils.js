@@ -16,7 +16,7 @@ db.connect((err) => {
 global.db = db;
 
 exports.get_user = function (nick_name, func) {
-  if (nick_name.slice(0, 1) == "@") {
+  if (nick_name.slice(0, 1) === "@") {
     nick_name = nick_name.slice(1);
   }
   let query = "select * from users where `nick_name`='" + nick_name + "'";
@@ -51,7 +51,7 @@ exports.save_wechat_friend = async function (user) {
   console.log(wechat_id + "," + nick_name);
   db.query("SET NAMES utf8mb4", (err, result) => {
     db.query("select * from wechat_friends where wechat_id='"+wechat_id+"'", (err1, result) => {
-      if(result.length==0){
+      if(result.length === 0) {
         db.query("insert into `wechat_friends` (wechat_id,nick_name) values ('" + wechat_id + "','" + nick_name + "')", (err2, result2) => {
           if (err2) {
             console.log(err2);

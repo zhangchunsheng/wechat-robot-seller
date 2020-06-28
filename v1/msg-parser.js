@@ -12,7 +12,7 @@ exports.getJson = function (xml) {
 
 exports.saveMessageFiles = async function (bot, msg) {
     var msg_type = msg.payload.type;
-    if (msg_type == bot.Message.Type.Image) {
+    if (msg_type === bot.Message.Type.Image) {
         const file = await msg.toFileBox();
         const name = Web_Files_Path + file.name;
         console.log('Save file to: ' + name);
@@ -25,17 +25,18 @@ exports.saveMessageFiles = async function (bot, msg) {
 
 exports.getMsgText = async function (bot, msg) {
     msg_text = msg.text();
-    if (msg.payload.type == bot.Message.Type.Image) {
+    if (msg.payload.type === bot.Message.Type.Image) {
         img_url = await this.saveMessageFiles(bot, msg).catch(error => console.log(error.message));
         msg_text = "![image](" + img_url + ")";
     }
-    if (msg.payload.type == bot.Message.Type.Emoticon) {
-        var json = this.getJson(msg.text());
+    var json;
+    if (msg.payload.type === bot.Message.Type.Emoticon) {
+        json = this.getJson(msg.text());
         img_url = json.msg.emoji[0]["$"].cdnurl;
         msg_text = "![image](" + img_url + ")";
     }
-    if (msg.payload.type == bot.Message.Type.Url) {
-        var json = this.getJson(msg.text());
+    if (msg.payload.type === bot.Message.Type.Url) {
+        json = this.getJson(msg.text());
         var title = json.msg.appmsg[0].title[0];
         var url = json.msg.appmsg[0].url[0];
         msg_text = "[" + title + "](" + url + ")";
