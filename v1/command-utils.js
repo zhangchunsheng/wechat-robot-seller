@@ -6,6 +6,9 @@ const WorkergroupLeader = require('./workgroup_leader.json');
 const Leaders = require('./leaders.json');
 const CouponRooms = require('./coupon_rooms.json');
 const ArRooms = require('./ar_rooms.json');
+import {
+    UrlLink,
+} from 'wechaty'
 
 function sleep (time) {
     return new Promise((resolve) => setTimeout(resolve, time));
@@ -40,7 +43,7 @@ exports.acceptUserFromDb = async function (bot, userName, type) {
 }
 
 exports.acceptUser = async function (bot, userName, type) {
-    this.acceptUserFromDb(bot, userName, type);
+    //this.acceptUserFromDb(bot, userName, type);
 }
 
 exports.doUserCommand = async function (bot, msg) {
@@ -127,10 +130,10 @@ exports.doRoomCommand = async function (bot, msg) {
         }
     }
     if(roomTopic === "烙馍省钱") {
+        var room;
         if(Leaders.indexOf(fromName) >= 0) {
             if (msgText.slice(0, 4) === "@烙馍网") {
                 msgText = msgText.slice(5);
-                var room;
                 if(msgText.slice(0, 2) === "群发") {
                     const list = await bot.Contact.findAll();
                     list.forEach(async function (item, index) {
@@ -147,6 +150,25 @@ exports.doRoomCommand = async function (bot, msg) {
                     for(let roomId of ArRooms) {
                         room = await bot.Room.load(roomId);
                         room.say(msgText.slice(2));
+                    }
+                }
+            }
+        } else {
+            //msg get word, say search coupon url
+            if (msgText.slice(0, 4) === "@烙馍网") {
+                msgText = msgText.slice(5);
+                if(msgText.trim() !== "") {
+                    var url = "https://tb-m.luomor.com/#/searchlist/" + msgText;
+                    //https://docs.chatie.io/api/message
+                    const urlLink = new UrlLink({
+                        description: '烙馍省钱' + msgText,
+                        thumbnailUrl: 'https://img.alicdn.com/imgextra/i4/790237325/O1CN01hY4aU523ytm2F4HxA_!!790237325.jpg?t=1586059949000',
+                        title: '烙馍省钱',
+                        url: url,
+                    });
+                    for(let roomId of CouponRooms) {
+                        room = await bot.Room.load(roomId);
+                        room.say(urlLink);
                     }
                 }
             }
