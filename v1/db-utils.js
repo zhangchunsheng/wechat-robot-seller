@@ -15,11 +15,11 @@ db.connect((err) => {
 
 global.db = db;
 
-exports.get_user = function (nick_name, func) {
-  if (nick_name.slice(0, 1) === "@") {
-    nick_name = nick_name.slice(1);
+exports.getUser = function (nickName, func) {
+  if (nickName.slice(0, 1) === "@") {
+    nickName = nickName.slice(1);
   }
-  let query = "select * from users where `nick_name`='" + nick_name + "'";
+  let query = "select * from users where `nick_name`='" + nickName + "'";
   console.log(query);
   db.query(query, (err, result) => {
     if (!err) {
@@ -30,29 +30,29 @@ exports.get_user = function (nick_name, func) {
   });
 }
 
-exports.update_user_status = function (wechat_id, user_status, func) {
-  let query = "update `users` set `status`='" + user_status + "' where `wechat_id`='" + wechat_id + "'";
+exports.updateUserStatus = function (wechatId, userStatus, func) {
+  let query = "update `users` set `status`='" + userStatus + "' where `wechat_id`='" + wechatId + "'";
   db.query(query, (err, result) => {
     if (func) { func(); }
   });
 }
 
-exports.update_user_position = function (wechat_id, position, func) {
-  let query = "update `users` set `position`='" + position + "' where `wechat_id`='" + wechat_id + "'";
+exports.updateUserPosition = function (wechatId, position, func) {
+  let query = "update `users` set `position`='" + position + "' where `wechat_id`='" + wechatId + "'";
   db.query(query, (err, result) => {
     if (func) { func(); }
   });
 }
 
 
-exports.save_wechat_friend = async function (user) {
-  var wechat_id = user.id;
-  var nick_name = await user.name();
-  console.log(wechat_id + "," + nick_name);
+exports.saveWechatFriend = async function (user) {
+  var wechatId = user.id;
+  var nickName = await user.name();
+  console.log(wechatId + "," + nickName);
   db.query("SET NAMES utf8mb4", (err, result) => {
-    db.query("select * from wechat_friends where wechat_id='"+wechat_id+"'", (err1, result) => {
+    db.query("select * from wechat_friends where wechat_id='" + wechatId + "'", (err1, result) => {
       if(result.length === 0) {
-        db.query("insert into `wechat_friends` (wechat_id,nick_name) values ('" + wechat_id + "','" + nick_name + "')", (err2, result2) => {
+        db.query("insert into `wechat_friends` (wechat_id,nick_name) values ('" + wechatId + "','" + nickName + "')", (err2, result2) => {
           if (err2) {
             console.log(err2);
           }
@@ -64,34 +64,34 @@ exports.save_wechat_friend = async function (user) {
 
 const MessageType = ["Unknown", "Attachment", "Audio", "Contact", "Emoticon", "Image", "Text", "Video", "Url"];
 
-exports.save_msg = async function (msg) {
+exports.saveMsg = async function (msg) {
   var fields = "`type`,";
   var values = "'" + MessageType[msg.type()-1] + "',";
   var room = await msg.room();
   if (room) {
-    var room_id = room.id;
-    var room_topic = await room.topic();
+    var roomId = room.id;
+    var roomTopic = await room.topic();
     fields = fields + "`room_id`,`room_topic`,";
-    room_topic = room_topic.replace(/\'/g, "\\\'");
-    values = values + "'" + room_id + "','" + room_topic + "',";
+    roomTopic = roomTopic.replace(/\'/g, "\\\'");
+    values = values + "'" + roomId + "','" + roomTopic + "',";
   }
   var from = await msg.from();
   if (from) {
-    var from_user_id = from.id;
-    var from_user_name = await from.name();
+    var fromUserId = from.id;
+    var fromUserName = await from.name();
     fields = fields + "`from_user_id`,`from_user_name`,";
-    values = values + "'" + from_user_id + "','" + from_user_name + "',";
+    values = values + "'" + fromUserId + "','" + fromUserName + "',";
   }
-  var mention_list = await msg.mention();
-  if (mention_list) {
-    var mention_id_list = "";
-    var mention_name_list = "";
-    mention_list.forEach(async function (item, index) {
-      mention_id_list = mention_id_list + item.id + ",";
-      mention_name_list = mention_name_list + await item.name() + ",";
+  var mentionList = await msg.mention();
+  if (mentionList) {
+    var mentionIdList = "";
+    var mentionNameList = "";
+    mentionList.forEach(async function (item, index) {
+      mentionIdList = mentionIdList + item.id + ",";
+      mentionNameList = mentionNameList + await item.name() + ",";
     });
     fields = fields + "`mention_id_list`,`mention_name_list`,";
-    values = values + "'" + mention_id_list + "','" + mention_name_list + "',";
+    values = values + "'" + mentionIdList + "','" + mentionNameList + "',";
   }
   text = await msg.text();
   text = text.replace(/\'/g,"\\\'");

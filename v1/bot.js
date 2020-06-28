@@ -42,11 +42,11 @@ async function onMessage(msg) {
             var room = await msg.room();
             console.log(await room.topic() + ":" + room.id);
             GitterUtils.sendMsgToGitter(bot, msg);
-            CommandUtils.do_room_command(bot, msg);
+            CommandUtils.doRoomCommand(bot, msg);
         } else if (msg.payload.type !== bot.Message.Type.Unknown) {
-            CommandUtils.do_user_command(bot, msg);
+            CommandUtils.doUserCommand(bot, msg);
         }
-        // DBUtils.save_msg(msg);
+        // DBUtils.saveMsg(msg);
     }
 }
 
@@ -58,7 +58,7 @@ async function onFriendship(friendship) {
         await contact.sync();
         contact.say(Dialog.greeting);
         console.log("add new friend to db");
-        // DBUtils.save_wechat_friend(contact);
+        // DBUtils.saveWechatFriend(contact);
     }
 }
 
@@ -111,7 +111,7 @@ queue.process("AddFriend", 1, async function (job, done) {
 queue.process("AllFriend", 1, async function (job, done) {
     const list = await bot.Contact.findAll();
     list.forEach(function (item, index) {
-        // DBUtils.save_wechat_friend(item);
+        // DBUtils.saveWechatFriend(item);
     });
     done();
 });

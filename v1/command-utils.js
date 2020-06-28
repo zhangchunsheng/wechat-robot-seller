@@ -13,7 +13,7 @@ function sleep (time) {
 
 exports.acceptUserFromDb = async function (bot, user_name, type) {
     console.log(type);
-    DBUtils.get_user(user_name, async function (user) {
+    DBUtils.getUser(user_name, async function (user) {
         if (user) {
             var contact = await bot.Contact.load(user.wechat_id);
             if (contact.friend()) {
@@ -25,13 +25,13 @@ exports.acceptUserFromDb = async function (bot, user_name, type) {
                     var text = "欢迎新朋友：" + user.nick_name + "\n" + user.nick_name + "的自我介绍：" + user.introduce;
                     room.add(wechat_user);
                     room.say(text);
-                    DBUtils.update_user_status(user.wechat_id, '已加入');
+                    DBUtils.updateUserStatus(user.wechat_id, '已加入');
                     if(type === "正式") {
                         var formal_room_id = RoomID["正式个人成员群"];
                         var formal_room = await bot.Room.load(formal_room_id);
                         formal_room.add(wechat_user);
                         formal_room.say(text);
-                        DBUtils.update_user_position(user.wechat_id, '正式成员');
+                        DBUtils.updateUserPosition(user.wechat_id, '正式成员');
                     }
                 }
             }
@@ -43,7 +43,7 @@ exports.acceptUser = async function (bot, user_name, type) {
     this.acceptUserFromDb(bot, user_name, type);
 }
 
-exports.do_user_command = async function (bot, msg) {
+exports.doUserCommand = async function (bot, msg) {
     var msg_text = await Parser.getMsgText(bot, msg);
     msg_text = msg_text.trim();
     var room;
@@ -110,7 +110,7 @@ exports.do_user_command = async function (bot, msg) {
     }
 }
 
-exports.do_room_command = async function (bot, msg) {
+exports.doRoomCommand = async function (bot, msg) {
     var msg_text = await Parser.getMsgText(bot, msg);
     var room_topic = await msg.room().topic();
     var from_name = await msg.from().name();
