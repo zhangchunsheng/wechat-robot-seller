@@ -11,26 +11,26 @@ function sleep (time) {
     return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-exports.acceptUserFromDb = async function (bot, user_name, type) {
+exports.acceptUserFromDb = async function (bot, userName, type) {
     console.log(type);
-    DBUtils.getUser(user_name, async function (user) {
+    DBUtils.getUser(userName, async function (user) {
         if (user) {
             var contact = await bot.Contact.load(user.wechat_id);
             if (contact.friend()) {
-                var room_id = RoomID[user.work_group];
-                console.log(room_id);
-                var room = await bot.Room.load(room_id);
-                var wechat_user = await bot.Contact.load(user.wechat_id);
+                var roomId = RoomID[user.work_group];
+                console.log(roomId);
+                var room = await bot.Room.load(roomId);
+                var wechatUser = await bot.Contact.load(user.wechat_id);
                 if(room) {
                     var text = "欢迎新朋友：" + user.nick_name + "\n" + user.nick_name + "的自我介绍：" + user.introduce;
-                    room.add(wechat_user);
+                    room.add(wechatUser);
                     room.say(text);
                     DBUtils.updateUserStatus(user.wechat_id, '已加入');
                     if(type === "正式") {
-                        var formal_room_id = RoomID["正式个人成员群"];
-                        var formal_room = await bot.Room.load(formal_room_id);
-                        formal_room.add(wechat_user);
-                        formal_room.say(text);
+                        var formalRoomId = RoomID["正式个人成员群"];
+                        var formalRoom = await bot.Room.load(formalRoomId);
+                        formalRoom.add(wechatUser);
+                        formalRoom.say(text);
                         DBUtils.updateUserPosition(user.wechat_id, '正式成员');
                     }
                 }
@@ -39,114 +39,114 @@ exports.acceptUserFromDb = async function (bot, user_name, type) {
     });
 }
 
-exports.acceptUser = async function (bot, user_name, type) {
-    this.acceptUserFromDb(bot, user_name, type);
+exports.acceptUser = async function (bot, userName, type) {
+    this.acceptUserFromDb(bot, userName, type);
 }
 
 exports.doUserCommand = async function (bot, msg) {
-    var msg_text = await Parser.getMsgText(bot, msg);
-    msg_text = msg_text.trim();
+    var msgText = await Parser.getMsgText(bot, msg);
+    msgText = msgText.trim();
     var room;
-    var from_name;
-    if (msg_text.slice(0, 6) === '#join ') {
-        msg_text = msg_text.slice(6);
-        var room_id = RoomID['烙馍省钱'];
-        room = await bot.Room.load(room_id);
+    var fromName;
+    if (msgText.slice(0, 6) === '#join ') {
+        msgText = msgText.slice(6);
+        var roomId = RoomID['烙馍省钱'];
+        room = await bot.Room.load(roomId);
         if (room) {
             await room.add(msg.from());
             await room.say("欢迎新朋友：" + msg.from().name());
-            await room.say(msg.from().name() + "的自我介绍：" + msg_text);
+            await room.say(msg.from().name() + "的自我介绍：" + msgText);
         } else {
             console.log("没有找到房间");
         }
-    } else if(msg_text.slice(0, 12) === '#joincoupon ') {
-        msg_text = msg_text.slice(12);
+    } else if(msgText.slice(0, 12) === '#joincoupon ') {
+        msgText = msgText.slice(12);
         room_index = 0;
-        room_id = CouponRooms[room_index];
-        room = await bot.Room.load(room_id);
+        roomId = CouponRooms[room_index];
+        room = await bot.Room.load(roomId);
         if (room) {
             await room.add(msg.from());
             await room.say("欢迎新朋友：" + msg.from().name());
-            await room.say(msg.from().name() + "的自我介绍：" + msg_text);
+            await room.say(msg.from().name() + "的自我介绍：" + msgText);
         } else {
             console.log("没有找到房间");
         }
-    } else if(msg_text.slice(0,9) === '#joinar') {
+    } else if(msgText.slice(0,9) === '#joinar') {
         room = await bot.Room.load('烙馍AR');
         if(room) {
             await room.add(msg.from());
         }
-    } else if(msg_text === '#merge') {
-        from_name = await msg.from().name();
-        if (from_name === "烙馍网") {
+    } else if(msgText === '#merge') {
+        fromName = await msg.from().name();
+        if (fromName === "烙馍网") {
             var room0 = await bot.Room.load(CouponRooms[0]);
             var room0list= await room0.memberAll();
             var room0userlist = [];
-            var time_count = 0;
+            var timeCount = 0;
             for(let room0user of room0list) {
                 room0userlist.push(room0user.id);
             }
-            for(let room_id of CouponRooms) {
-                room = await bot.Room.load(room_id);
-                console.log(room_id);
+            for(let roomId of CouponRooms) {
+                room = await bot.Room.load(roomId);
+                console.log(roomId);
                 var list = await room.memberAll();
                 for(let user of list) {
                     if (room0userlist.indexOf(user.id) === -1) {
-                        sleep(3000 * time_count).then(() => {
+                        sleep(3000 * timeCount).then(() => {
                             user.say("合并现场观众到一个大群，已经加入的同学请忽略");
                             room0.add(user);
                         });
-                        time_count = time_count + 1;
+                        timeCount = timeCount + 1;
                     }
                 }
             }
         }
     } else {
-        from_name = await msg.from().name();
-        if (from_name !== "烙馍网" && from_name !== "微信团队") {
-            var reply = Dialog.getReply(msg_text);
+        fromName = await msg.from().name();
+        if (fromName !== "烙馍网" && fromName !== "微信团队") {
+            var reply = Dialog.getReply(msgText);
             msg.say(reply);
         }
     }
 }
 
 exports.doRoomCommand = async function (bot, msg) {
-    var msg_text = await Parser.getMsgText(bot, msg);
-    var room_topic = await msg.room().topic();
-    var from_name = await msg.from().name();
-    if(WorkergroupLeader[room_topic]) {
-        if(WorkergroupLeader[room_topic] === from_name || from_name === '烙馍网') {
-            if (msg_text.slice(0, 4) === "@烙馍网") {
-                msg_text = msg_text.slice(5);
-                if (msg_text.slice(0, 2) === "接纳" || msg_text.slice(0, 2) === "同意") {
-                    this.acceptUser(bot, msg_text.slice(2), "预备");
-                } else if (msg_text.slice(0, 2) === "正式") {
-                    this.acceptUser(bot, msg_text.slice(2), "正式");
+    var msgText = await Parser.getMsgText(bot, msg);
+    var roomTopic = await msg.room().topic();
+    var fromName = await msg.from().name();
+    if(WorkergroupLeader[roomTopic]) {
+        if(WorkergroupLeader[roomTopic] === fromName || fromName === '烙馍网') {
+            if (msgText.slice(0, 4) === "@烙馍网") {
+                msgText = msgText.slice(5);
+                if (msgText.slice(0, 2) === "接纳" || msgText.slice(0, 2) === "同意") {
+                    this.acceptUser(bot, msgText.slice(2), "预备");
+                } else if (msgText.slice(0, 2) === "正式") {
+                    this.acceptUser(bot, msgText.slice(2), "正式");
                 }
             }
         }
     }
-    if(room_topic === "烙馍省钱") {
-        if(Leaders.indexOf(from_name) >= 0) {
-            if (msg_text.slice(0, 4) === "@烙馍网") {
-                msg_text = msg_text.slice(5);
+    if(roomTopic === "烙馍省钱") {
+        if(Leaders.indexOf(fromName) >= 0) {
+            if (msgText.slice(0, 4) === "@烙馍网") {
+                msgText = msgText.slice(5);
                 var room;
-                if(msg_text.slice(0, 2) === "群发") {
+                if(msgText.slice(0, 2) === "群发") {
                     const list = await bot.Contact.findAll();
                     list.forEach(async function (item, index) {
                         sleep(2000 * index).then(() => {
-                            item.say(msg_text.slice(2));
+                            item.say(msgText.slice(2));
                         });
                     });
-                } else if(msg_text.slice(0, 6) === "coupon") {
-                    for(let room_id of CouponRooms) {
-                        room = await bot.Room.load(room_id);
-                        room.say(msg_text.slice(7));
+                } else if(msgText.slice(0, 6) === "coupon") {
+                    for(let roomId of CouponRooms) {
+                        room = await bot.Room.load(roomId);
+                        room.say(msgText.slice(7));
                     }
-                } else if(msg_text.slice(0, 2) === "ar") {
-                    for(let room_id of ArRooms) {
-                        room = await bot.Room.load(room_id);
-                        room.say(msg_text.slice(2));
+                } else if(msgText.slice(0, 2) === "ar") {
+                    for(let roomId of ArRooms) {
+                        room = await bot.Room.load(roomId);
+                        room.say(msgText.slice(2));
                     }
                 }
             }

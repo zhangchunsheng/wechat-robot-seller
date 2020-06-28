@@ -1,7 +1,7 @@
 const request = require('request');
 const Parser = require('./msg-parser');
 
-const Gitter_Token = process.env.GITTER_TOKEN;
+const GitterToken = process.env.GITTER_TOKEN;
 
 function getRoomID(topic) {
     switch (topic) {
@@ -25,7 +25,7 @@ exports.sendMsgToGitter = async function (bot, msg) {
                 url: 'https://api.gitter.im/v1/rooms/' + room_id + '/chatMessages',
                 headers: {
                     "Accept": "application/json",
-                    "Authorization": Gitter_Token
+                    "Authorization": GitterToken
                 },
                 form: {
                     text: msg.from().name() + ":" + text
