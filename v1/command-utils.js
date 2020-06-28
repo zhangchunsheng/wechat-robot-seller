@@ -11,7 +11,7 @@ function sleep (time) {
     return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-exports.accept_user = async function (bot, user_name, type) {
+exports.acceptUserFromDb = async function (bot, user_name, type) {
     console.log(type);
     DBUtils.get_user(user_name, async function (user) {
         if (user) {
@@ -37,6 +37,10 @@ exports.accept_user = async function (bot, user_name, type) {
             }
         }
     });
+}
+
+exports.acceptUser = async function (bot, user_name, type) {
+    this.acceptUserFromDb(bot, user_name, type);
 }
 
 exports.do_user_command = async function (bot, msg) {
@@ -115,9 +119,9 @@ exports.do_room_command = async function (bot, msg) {
             if (msg_text.slice(0, 4) === "@烙馍网") {
                 msg_text = msg_text.slice(5);
                 if (msg_text.slice(0, 2) === "接纳" || msg_text.slice(0, 2) === "同意") {
-                    this.accept_user(bot, msg_text.slice(2), "预备");
+                    this.acceptUser(bot, msg_text.slice(2), "预备");
                 } else if (msg_text.slice(0, 2) === "正式") {
-                    this.accept_user(bot, msg_text.slice(2), "正式");
+                    this.acceptUser(bot, msg_text.slice(2), "正式");
                 }
             }
         }
