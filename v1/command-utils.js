@@ -111,6 +111,24 @@ exports.doUserCommand = async function (bot, msg) {
     }
 }
 
+async function sendMsg(bot, msgText) {
+    if(msgText.trim() !== "") {
+        var room;
+        var url = "https://tb-m.luomor.com/#/searchlist/" + msgText;
+        //https://docs.chatie.io/api/message
+        const urlLink = new UrlLink({
+            description: '烙馍省钱[' + msgText + ']',
+            thumbnailUrl: 'https://img.alicdn.com/imgextra/i4/790237325/O1CN01hY4aU523ytm2F4HxA_!!790237325.jpg?t=1586059949000',
+            title: '烙馍省钱',
+            url: url,
+        });
+        for(let roomId of CouponRooms) {
+            room = await bot.Room.load(roomId);
+            room.say(urlLink);
+        }
+    }
+}
+
 exports.doRoomCommand = async function (bot, msg) {
     var msgText = await Parser.getMsgText(bot, msg);
     var roomTopic = await msg.room().topic();
@@ -149,26 +167,15 @@ exports.doRoomCommand = async function (bot, msg) {
                         room = await bot.Room.load(roomId);
                         room.say(msgText.slice(2));
                     }
+                } else {
+                    sendMsg(bot, msgText);
                 }
             }
         } else {
             //msg get word, say search coupon url
             if (msgText.slice(0, 4) === "@烙馍网") {
                 msgText = msgText.slice(5);
-                if(msgText.trim() !== "") {
-                    var url = "https://tb-m.luomor.com/#/searchlist/" + msgText;
-                    //https://docs.chatie.io/api/message
-                    const urlLink = new UrlLink({
-                        description: '烙馍省钱[' + msgText + ']',
-                        thumbnailUrl: 'https://img.alicdn.com/imgextra/i4/790237325/O1CN01hY4aU523ytm2F4HxA_!!790237325.jpg?t=1586059949000',
-                        title: '烙馍省钱',
-                        url: url,
-                    });
-                    for(let roomId of CouponRooms) {
-                        room = await bot.Room.load(roomId);
-                        room.say(urlLink);
-                    }
-                }
+                sendMsg(bot, msgText);
             }
         }
     }
