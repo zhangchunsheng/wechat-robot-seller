@@ -5,7 +5,7 @@ const GitterToken = process.env.GITTER_TOKEN;
 
 function getRoomID(topic) {
     switch (topic) {
-        case "烙馍网.烙馍省钱":
+        case "烙馍省钱":
             return "5ef843e4d73408ce4fe81add";
         default:
             return null;
