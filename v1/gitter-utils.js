@@ -20,9 +20,11 @@ exports.sendMsgToGitter = async function (bot, msg) {
         text = msg.text();
     }
     if (room_id != null) {
+        var url = 'https://api.gitter.im/v1/rooms/' + room_id + '/chatMessages';
+        console.log(url);
         request.post(
             {
-                url: 'https://api.gitter.im/v1/rooms/' + room_id + '/chatMessages',
+                url: url,
                 headers: {
                     "Accept": "application/json",
                     "Authorization": GitterToken
