@@ -6,12 +6,12 @@ const db = mysql.createConnection({
   database: 'taobao-coupon'
 });
 
-db.connect((err) => {
+/*db.connect((err) => {
   if (err) {
     throw err;
   }
   console.log("Connected to Coupon DB");
-});
+});*/
 
 global.db = db;
 

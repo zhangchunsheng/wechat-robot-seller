@@ -6,9 +6,7 @@ const WorkergroupLeader = require('./workgroup_leader.json');
 const Leaders = require('./leaders.json');
 const CouponRooms = require('./coupon_rooms.json');
 const ArRooms = require('./ar_rooms.json');
-import {
-    UrlLink,
-} from 'wechaty'
+const { Wechaty,UrlLink } = require('wechaty');
 
 function sleep (time) {
     return new Promise((resolve) => setTimeout(resolve, time));
@@ -64,8 +62,8 @@ exports.doUserCommand = async function (bot, msg) {
         }
     } else if(msgText.slice(0, 12) === '#joincoupon ') {
         msgText = msgText.slice(12);
-        room_index = 0;
-        roomId = CouponRooms[room_index];
+        var roomIndex = 0;
+        roomId = CouponRooms[roomIndex];
         room = await bot.Room.load(roomId);
         if (room) {
             await room.add(msg.from());

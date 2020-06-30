@@ -40,7 +40,7 @@
     "rocksdb": "^4.1.0",
     "simple-git": "^1.129.0",
     "wechaty": "^0.29.41",
-    "wechaty-puppet-padplus": "0.0.140",
+    "wechaty-puppet-padplus": "^0.7.21",
     "xml2js": "^0.4.23",
     "mem": ">=4.0.0",
     "extend": ">=2.0.2"
