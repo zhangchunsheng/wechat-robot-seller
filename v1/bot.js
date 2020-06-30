@@ -33,6 +33,8 @@ function onLogout(user) {
     console.log(`${user} logout`);
 }
 
+GitterUtils.testMsg();
+
 async function onMessage(msg) {
     if (msg.age() > 60) {
         return;
