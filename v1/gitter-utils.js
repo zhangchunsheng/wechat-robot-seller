@@ -14,13 +14,13 @@ function getRoomID(topic) {
 
 exports.sendMsgToGitter = async function (bot, msg) {
     var text = await Parser.getMsgText(bot, msg);
-    var room_topic = msg.room().payload.topic;
-    var room_id = getRoomID(room_topic);
+    var roomTopic = msg.room().payload.topic;
+    var roomId = getRoomID(roomTopic);
     if (text == null) {
         text = msg.text();
     }
-    if (room_id != null) {
-        var url = 'https://api.gitter.im/v1/rooms/' + room_id + '/chatMessages';
+    if (roomId != null) {
+        var url = 'https://api.gitter.im/v1/rooms/' + roomId + '/chatMessages';
         console.log(url);
         request.post(
             {
