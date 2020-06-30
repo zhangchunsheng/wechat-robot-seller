@@ -159,7 +159,7 @@ exports.doRoomCommand = async function (bot, msg) {
                     var url = "https://tb-m.luomor.com/#/searchlist/" + msgText;
                     //https://docs.chatie.io/api/message
                     const urlLink = new UrlLink({
-                        description: '烙馍省钱' + msgText,
+                        description: '烙馍省钱[' + msgText + ']',
                         thumbnailUrl: 'https://img.alicdn.com/imgextra/i4/790237325/O1CN01hY4aU523ytm2F4HxA_!!790237325.jpg?t=1586059949000',
                         title: '烙馍省钱',
                         url: url,
