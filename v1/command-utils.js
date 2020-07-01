@@ -164,7 +164,7 @@ exports.doRoomCommand = async function (bot, msg) {
     if(roomTopic.slice(0, 4) === "烙馍省钱") {
         var room;
         if(roomTopic === "烙馍省钱测试群") {
-            console.log(msgText);
+            console.log(fromName + ":" + msgText);
         }
         if(Leaders.indexOf(fromName) >= 0) {
             if (msgText.slice(0, 4) === "@烙馍网") {
