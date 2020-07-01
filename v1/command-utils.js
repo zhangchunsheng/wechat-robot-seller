@@ -111,9 +111,10 @@ exports.doUserCommand = async function (bot, msg) {
     }
 }
 
-async function sendMsg(bot, msgText) {
+async function sendMsg(bot, msgText, msg) {
     if(msgText.trim() !== "") {
         var room;
+        var currentRoom = await msg.room().id;
         var url = "https://tb-m.luomor.com/#/searchlist/" + msgText;
         //https://docs.chatie.io/api/message
         const urlLink = new UrlLink({
@@ -122,9 +123,13 @@ async function sendMsg(bot, msgText) {
             title: '烙馍省钱',
             url: url,
         });
-        for(let roomId of CouponRooms) {
-            room = await bot.Room.load(roomId);
-            room.say(urlLink);
+        if(currentRoom) {
+            msg.say(urlLink);
+        } else {
+            for(let roomId of CouponRooms) {
+                room = await bot.Room.load(roomId);
+                room.say(urlLink);
+            }
         }
     }
 }
@@ -168,14 +173,14 @@ exports.doRoomCommand = async function (bot, msg) {
                         room.say(msgText.slice(2));
                     }
                 } else {
-                    sendMsg(bot, msgText);
+                    sendMsg(bot, msgText, msg);
                 }
             }
         } else {
             //msg get word, say search coupon url
             if (msgText.slice(0, 4) === "@烙馍网") {
                 msgText = msgText.slice(5);
-                sendMsg(bot, msgText);
+                sendMsg(bot, msgText, msg);
             }
         }
     }
