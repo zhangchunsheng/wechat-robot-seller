@@ -4,6 +4,7 @@ const Parser = require('./msg-parser');
 const GitterToken = process.env.GITTER_TOKEN;
 
 function getRoomID(topic) {
+    topic = topic.slice(0, 4)
     switch (topic) {
         case "烙馍省钱":
             return "5ef843e4d73408ce4fe81add";
