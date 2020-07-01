@@ -113,9 +113,10 @@ exports.doUserCommand = async function (bot, msg) {
 
 async function sendMsg(bot, msgText, msg) {
     if(msgText.trim() !== "") {
-        var room;
-        var currentRoom = await msg.room().id;
-        var url = "https://tb-m.luomor.com/#/searchlist/" + msgText;
+        let room;
+        const currentRoom = await msg.room().id;
+        const fromName = await msg.from().name();
+        const url = "https://tb-m.luomor.com/#/searchlist/" + msgText;
         //https://docs.chatie.io/api/message
         const urlLink = new UrlLink({
             description: '烙馍省钱[' + msgText + ']',
@@ -124,12 +125,22 @@ async function sendMsg(bot, msgText, msg) {
             url: url,
         });
         if(currentRoom) {
-            msg.say(urlLink);
-        } else {
-            for(let roomId of CouponRooms) {
-                room = await bot.Room.load(roomId);
-                room.say(urlLink);
+            if(Leaders.indexOf(fromName) >= 0) {
+                let hasSend = false;
+                for(let roomId of CouponRooms) {
+                    if(currentRoom === roomId) {
+                        hasSend = true;
+                    }
+                    room = await bot.Room.load(roomId);
+                    room.say(urlLink);
+                }
+                if(!hasSend) {
+                    msg.say(urlLink);
+                }
+            } else {
+                msg.say(urlLink);
             }
+
         }
     }
 }
