@@ -4,6 +4,9 @@
 [wechat-robot-seller_1.0.0.1 2020-06-30 张春生]
 1.新功能:the first version
 
+[wechat-robot-seller_1.0.0.1 2020-07-01 张春生]
+1.新功能:add multi group support
+
 --备注分类
 1、新功能：
 2、Bug:
