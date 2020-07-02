@@ -116,7 +116,7 @@ async function sendMsg(bot, msgText, msg) {
         let room;
         const currentRoom = await msg.room().id;
         const fromName = await msg.from().name();
-        const url = "https://tb-m.luomor.com/#/searchlist/" + msgText;
+        const url = "https://tb-m.luomor.com/#/searchlist/" + encodeURIComponent(msgText);
         //https://docs.chatie.io/api/message
         const urlLink = new UrlLink({
             description: '烙馍省钱[' + msgText + ']',
