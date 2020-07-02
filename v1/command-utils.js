@@ -51,7 +51,7 @@ exports.doUserCommand = async function (bot, msg) {
     var fromName;
     if (msgText.slice(0, 6) === '#join ') {
         msgText = msgText.slice(6);
-        var roomId = RoomID['烙馍省钱'];
+        var roomId = RoomID['烙馍省钱体验群'];
         room = await bot.Room.load(roomId);
         if (room) {
             await room.add(msg.from());
