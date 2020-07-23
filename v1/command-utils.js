@@ -6,7 +6,7 @@ const WorkergroupLeader = require('./workgroup_leader.json');
 const Leaders = require('./leaders.json');
 const CouponRooms = require('./coupon_rooms.json');
 const ArRooms = require('./ar_rooms.json');
-const { Wechaty,UrlLink } = require('wechaty');
+const { Wechaty,UrlLink,MiniProgram } = require('wechaty');
 
 function sleep (time) {
     return new Promise((resolve) => setTimeout(resolve, time));
@@ -112,7 +112,17 @@ exports.doUserCommand = async function (bot, msg) {
 }
 
 async function sendMsg(bot, msgText, msg) {
-    if(msgText.trim() !== "") {
+    if(msgText.trim() === "mini") {
+        const miniProgram = new MiniProgram({
+            appid: "wxfb2e52f9fd4d88ed", // optional, appid, get from wechat (mp.weixin.qq.com)
+            description: "烙馍倾听", // optional, mini program title
+            pagepath: "pages/index/index", // optional, mini program page path
+            thumbnailurl: "https://wx1.sinaimg.cn/mw690/46b94231ly1gh0xjf8rkhj21js0jf0xb.jpg", // optional, default picture, convert to thumbnail
+            title: "烙馍FM",  // optional, mini program title
+            username: "gh_ac56114ac630"
+        });
+        msg.say(miniProgram);
+    } else if(msgText.trim() !== "") {
         let room;
         const currentRoom = await msg.room().id;
         const fromName = await msg.from().name();
@@ -140,7 +150,6 @@ async function sendMsg(bot, msgText, msg) {
             } else {
                 msg.say(urlLink);
             }
-
         }
     }
 }
