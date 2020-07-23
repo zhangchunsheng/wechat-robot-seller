@@ -116,7 +116,7 @@ async function sendMsg(bot, msgText, msg) {
         const miniProgram = new MiniProgram({
             appid: process.env.WECHAT_MINI_PROGRAM_APPID, // optional, appid, get from wechat (mp.weixin.qq.com)
             description: "烙馍倾听", // optional, mini program title
-            pagepath: "pages/index/index", // optional, mini program page path
+            pagepath: "pages/index/index.html", // optional, mini program page path
             thumbnailurl: "https://wx1.sinaimg.cn/mw690/46b94231ly1gh0xjf8rkhj21js0jf0xb.jpg", // optional, default picture, convert to thumbnail
             title: "烙馍FM",  // optional, mini program title
             username: process.env.WECHAT_MINI_PROGRAM_USERNAME
