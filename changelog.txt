@@ -10,6 +10,9 @@
 [wechat-robot-seller_1.0.0.1 2020-07-02 张春生]
 1.新功能:add multi group support
 
+[wechat-robot-seller_1.0.0.1 2020-08-05 张春生]
+1.新功能:add php version
+
 --备注分类
 1、新功能：
 2、Bug:
