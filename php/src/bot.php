@@ -12,7 +12,7 @@ use IO\Github\Wechaty\User\UrlLink;
 
 define("ROOT", dirname(__DIR__));
 
-require(ROOT . "src/init.inc.php");
+require(ROOT . "/src/init.inc.php");
 
 $token = getenv("WECHATY_PUPPET_HOSTIE_TOKEN");
 $endPoint = getenv("WECHATY_PUPPET_HOSTIE_ENDPOINT");

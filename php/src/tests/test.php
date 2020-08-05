@@ -7,6 +7,6 @@
  */
 define("ROOT", dirname(__DIR__));
 
-require(ROOT . "init.inc.php");
+require(ROOT . "/init.inc.php");
 
 \Luomor\Utils\GitterUtil::testMsg();
