@@ -5,8 +5,8 @@
  * Date: 2020/8/5
  * Time: 9:45 PM
  */
-define("ROOT", dirname(__DIR__));
+define("ROOT", dirname(dirname(__DIR__)));
 
-require(ROOT . "/init.inc.php");
+require(ROOT . "/src/init.inc.php");
 
 \Luomor\Utils\GitterUtil::testMsg();
