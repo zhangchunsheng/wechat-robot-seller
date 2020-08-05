@@ -12,7 +12,7 @@
 
 [wechat-robot-seller_1.0.0.1 2020-08-05 张春生]
 1.新功能:add php version
-
+2.新功能:add GitterUtil method
 --备注分类
 1、新功能：
 2、Bug:
