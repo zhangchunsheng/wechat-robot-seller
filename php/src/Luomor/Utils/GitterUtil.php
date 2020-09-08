@@ -18,7 +18,7 @@ class GitterUtil {
         $topic = substr($topic, 0, 4);
         switch ($topic) {
             case "烙馍省钱":
-                return "5ef843e4d73408ce4fe81add";
+                return "5ef843e4d73408ce4fe81add";//■
             default:
                 return null;
         }
