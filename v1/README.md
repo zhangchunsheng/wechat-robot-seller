@@ -59,3 +59,20 @@ deprecate kue@0.11.6 › stylus@0.54.8 › css-parse@2.0.0 › css@2.2.4 › sou
 deprecate kue@0.11.6 › pug@2.0.4 › pug-code-gen@2.0.2 › constantinople@3.1.2 › babel-types@6.26.0 › babel-runtime@6.26.0 › core-js@^2.4.0 core-js@<3 is no longer maintained and not recommended for usage due to the number of issues. Please, upgrade your dependencies to the actual version of core-js@3.
 Recently updated (since 2020-12-21): 2 packages (detail see file /home/test/git/wechat-robot-seller/v1/node_modules/.recently_updates.txt)
 ```
+
+https://wechaty.js.org/docs/puppet-services/
+
+```
+12:16:28 VERB Wechaty initPuppetEventBridge() puppet.on(heartbeat) (listenerCount:0) registering...
+12:16:28 VERB Wechaty initPuppetEventBridge() puppet.on(ready) (listenerCount:0) registering...
+12:16:28 VERB Wechaty initPuppetEventBridge() puppet.on(reset) (listenerCount:0) registering...
+12:16:28 VERB Wechaty wechatifyUserModules(Puppet#0<PuppetHostie>(taobao-coupon-seller))
+12:16:28 VERB PuppetHostie start()
+12:16:28 VERB StateSwitch <PuppetHostie> on(pending) <- (false)
+12:16:28 VERB PuppetHostie startGrpcClient()
+12:16:28 VERB PuppetHostie discoverHostieIp(67ac832ecc2d5fcda97c7e63595060cb)
+12:16:28 WARN No endpoint when starting grpc client, 10 retry left. Reconnecting in 10 seconds...
+null
+12:16:38 VERB PuppetHostie discoverHostieIp(67ac832ecc2d5fcda97c7e63595060cb)
+12:16:39 WARN No endpoint when starting grpc client, 9 retry left. Reconnecting in 10 seconds...
+```
