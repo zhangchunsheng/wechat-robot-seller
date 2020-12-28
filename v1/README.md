@@ -76,3 +76,7 @@ null
 12:16:38 VERB PuppetHostie discoverHostieIp(67ac832ecc2d5fcda97c7e63595060cb)
 12:16:39 WARN No endpoint when starting grpc client, 9 retry left. Reconnecting in 10 seconds...
 ```
+
+How to became a Wechaty Puppet Service Provider
+
+https://github.com/wechaty/puppet-services/discussions/11
