@@ -1,4 +1,4 @@
-#wechat-robot-seller [![PHP CI](https://github.com/zhangchunsheng/wechat-robot-seller/workflows/PHP%20CI/badge.svg)](https://github.com/zhangchunsheng/wechat-robot-seller/actions?query=workflow%3A%22PHP+CI%22)
+# wechat-robot-seller [![PHP CI](https://github.com/zhangchunsheng/wechat-robot-seller/workflows/PHP%20CI/badge.svg)](https://github.com/zhangchunsheng/wechat-robot-seller/actions?query=workflow%3A%22PHP+CI%22)
 
 ### 背景
 疫情期间基于淘宝客的接口写了一个网站烙馍省钱https://tb-m.luomor.com/ ，而推广对于程序员来说很难实施，现在有很多基于社区的推广微信群，因此想做一个带货机器人，之前接触过wechaty，只是之前基于web协议，昨天试了一下微信不让在web页面登录了

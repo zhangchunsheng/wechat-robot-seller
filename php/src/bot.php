@@ -11,22 +11,8 @@ use IO\Github\Wechaty\User\MiniProgram;
 use IO\Github\Wechaty\User\UrlLink;
 
 define("ROOT", dirname(__DIR__));
-// DEBUG should create dir use command sudo mkdir /var/log/wechaty && sudo chmod 777 /var/log/wechaty
-define("DEBUG", 1);
 
-function autoload($clazz) {
-    $file = str_replace('\\', '/', $clazz);
-    if(is_file(ROOT . "/src/$file.php")) {
-        require ROOT . "/src/$file.php";
-    }
-}
-
-spl_autoload_register("autoload");
-
-require ROOT . '/vendor/autoload.php';
-
-// change dir
-// \IO\Github\Wechaty\Util\Logger::$_LOGGER_DIR = "/tmp/";
+require(ROOT . "/src/init.inc.php");
 
 $token = getenv("WECHATY_PUPPET_HOSTIE_TOKEN");
 $endPoint = getenv("WECHATY_PUPPET_HOSTIE_ENDPOINT");
@@ -42,15 +28,19 @@ $wechaty->onScan(function($qrcode, $status, $data) {
     echo "login user id " . $user->getId() . "\n";
     echo "login user name " . $user->getPayload()->name . "\n";
 })->onMessage(function(\IO\Github\Wechaty\User\Message $message) use ($wechaty) {
-    $name = $message->from()->getPayload()->name;
-    $text = $message->getPayload()->text;
-    echo "message from user name $name : $text\n";
-    if($text == "ding") {
-        $message->say("dong");
-    } else if($text == "_stop_") {
-        $wechaty->stop();
-    } else {
-        $message->say("hello $name from php-wechaty");
+    if ($message->age() > 60) {
+        return;
+    }
+    if ($message->getPayload()) {
+        if ($message->room() != null && $message->getPayload()->type !== \IO\Github\Wechaty\Puppet\Schemas\MessagePayload::MESSAGETYPE_UNKNOWN) {
+            $room = $message->room();
+            echo $room->getTopic() . ":" . $room->getId();
+            \Luomor\Utils\GitterUtil::sendMsgToGitter($wechaty, $message);
+            \Luomor\Utils\CommandUtil::doRoomCommand($wechaty, $message);
+        } else if ($message->getPayload()->type !== \IO\Github\Wechaty\Puppet\Schemas\MessagePayload::MESSAGETYPE_UNKNOWN) {
+            \Luomor\Utils\CommandUtil::doUserCommand($wechaty, $message);
+        }
+        // DBUtils::saveMsg($message);
     }
 })->onHeartBeat(function($data) use ($wechaty) {
     echo $data . "\n";
