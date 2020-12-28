@@ -32,3 +32,18 @@
 "wechaty-puppet-puppeteer": "^0.23.1",
 "wechaty-puppet-wechat4u": "^0.16.3",
 ```
+
+```
+11:35:04 ERR PuppetHostie start() rejection: no endpoint
+Error: no endpoint
+    at PuppetHostie.<anonymous> (/home/test/git/wechat-robot-seller/v1/node_modules/_wechaty-puppet-hostie@0.8.4@wechaty-puppet-hostie/dist/src/client/puppet-hostie.js:68:27)
+    at Generator.next (<anonymous>)
+    at fulfilled (/home/test/git/wechat-robot-seller/v1/node_modules/_wechaty-puppet-hostie@0.8.4@wechaty-puppet-hostie/dist/src/client/puppet-hostie.js:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+11:35:04 ERR Wechaty start() exception: no endpoint
+Error: no endpoint
+    at PuppetHostie.<anonymous> (/home/test/git/wechat-robot-seller/v1/node_modules/_wechaty-puppet-hostie@0.8.4@wechaty-puppet-hostie/dist/src/client/puppet-hostie.js:68:27)
+    at Generator.next (<anonymous>)
+    at fulfilled (/home/test/git/wechat-robot-seller/v1/node_modules/_wechaty-puppet-hostie@0.8.4@wechaty-puppet-hostie/dist/src/client/puppet-hostie.js:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+```
