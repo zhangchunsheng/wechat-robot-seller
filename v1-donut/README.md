@@ -80,3 +80,13 @@ null
 How to became a Wechaty Puppet Service Provider
 
 https://github.com/wechaty/puppet-services/discussions/11
+
+```
+peerDependencies WARNING wechaty-puppet-hostie@^0.10.8 requires a peer of wechaty-puppet@^0.32.2 but wechaty-puppet@0.33.6 was installed
+peerDependencies WARNING wechaty-puppet-hostie@0.10.8 › ws@^7.3.1 requires a peer of bufferutil@^4.0.1 but none was installed
+peerDependencies WARNING wechaty-puppet-hostie@0.10.8 › ws@^7.3.1 requires a peer of utf-8-validate@^5.0.2 but none was installed
+deprecate request@^2.88.0 request has been deprecated, see https://github.com/request/request/issues/3142
+deprecate request@2.88.2 › har-validator@~5.1.3 this library is no longer supported
+deprecate kue@0.11.6 › stylus@0.54.8 › css-parse@2.0.0 › css@2.2.4 › source-map-resolve@0.5.3 › resolve-url@^0.2.1 https://github.com/lydell/resolve-url#deprecated
+deprecate kue@0.11.6 › pug@2.0.4 › pug-code-gen@2.0.2 › constantinople@3.1.2 › babel-types@6.26.0 › babel-runtime@6.26.0 › core-js@^2.4.0 core-js@<3 is no longer maintained and not recommended for usage due to the number of issues. Please, upgrade your dependencies to the actual version of core-js@3.
+```
