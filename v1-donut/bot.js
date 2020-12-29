@@ -1,5 +1,4 @@
 const { Wechaty } = require('wechaty');
-const { PuppetPadplus } = require('wechaty-puppet-padplus');
 const QRCode = require('qrcode-terminal');
 const Parser = require('./msg-parser');
 const GitterUtils = require('./gitter-utils');
@@ -8,11 +7,9 @@ const Dialog = require('./dialog');
 const DBUtils = require('./db-utils');
 const RoomID = require('./roomid.json');
 
-const puppet = new PuppetPadplus();
-
 const bot = new Wechaty({
     name: "taobao-coupon-seller",
-    puppet: puppet
+    puppet: 'wechaty-puppet-hostie'
 });
 
 function onScan(qrcode, status) {
