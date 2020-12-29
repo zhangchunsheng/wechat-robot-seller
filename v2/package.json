@@ -1,0 +1,53 @@
+{
+  "name": "wechaty-robot-seller",
+  "version": "0.4.24",
+  "description": "Wechaty is a Conversational AI RPA SDK for Chatbot",
+  "main": "bot.js",
+  "engines": {
+    "node": ">= 12"
+  },
+  "scripts": {
+    "lint": "eslint \"examples/*.{js,ts}\"",
+    "start": "cross-env WECHATY_LOG=verbose nodemon -w examples/ examples/ding-dong-bot.ts",
+    "start:js": "cross-env WECHATY_LOG=verbose node examples/ding-dong-bot.js",
+    "start:ts": "cross-env WECHATY_LOG=verbose node -r ts-node/register examples/ding-dong-bot.ts",
+    "test": "npm run lint && npm run test:version && npm run test:smoke",
+    "test:smoke": "node tests/smoke-testing.js",
+    "test:version": "check-node-version --node \">= 12\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhangchunsheng/wechat-robot-seller.git"
+  },
+  "keywords": [],
+  "author": "ChunshengZhang <chunsheng.zhang@luomor.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/zhangchunsheng/wechat-robot-seller/issues"
+  },
+  "homepage": "https://github.com/zhangchunsheng/wechat-robot-seller#readme",
+  "dependencies": {
+    "qrcode-terminal": "^0.12.0",
+    "wechaty": "^0.50.7",
+    "wechaty-plugin-contrib": "^0.14.15"
+  },
+  "devDependencies": {
+    "extend": ">=2.0.2",
+    "javascript-state-machine": "^3.1.0",
+    "kue": "^0.11.6",
+    "mem": ">=4.0.0",
+    "mysql": "^2.15.0",
+    "qrcode-terminal": "^0.12.0",
+    "request": "^2.88.0",
+    "rocksdb": "^4.1.0",
+    "simple-git": "^1.129.0",
+    "wechaty": "^0.50.7",
+    "wechaty-puppet-hostie": "^0.10.8",
+    "xml2js": "^0.4.23"
+  },
+  "git": {
+    "scripts": {
+      "pre-push": "npx git-scripts-pre-push"
+    }
+  }
+}
