@@ -1,6 +1,12 @@
-import { Wechaty } from 'wechaty'
-import { ScanStatus } from 'wechaty-puppet'
-import QrcodeTerminal from 'qrcode-terminal';
+const { Wechaty } = require('wechaty');
+const { ScanStatus } = require('wechaty-puppet');
+const QrcodeTerminal = require('qrcode-terminal');
+const Parser = require('./msg-parser');
+const GitterUtils = require('./gitter-utils');
+const CommandUtils = require('./command-utils');
+const Dialog = require('./dialog');
+const DBUtils = require('./db-utils');
+const RoomID = require('./roomid.json');
 
 const bot = new Wechaty({
     puppet: 'wechaty-puppet-hostie'
