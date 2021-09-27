@@ -41,7 +41,7 @@
     "request": "^2.88.0",
     "rocksdb": "^4.1.0",
     "simple-git": "^1.129.0",
-    "wechaty": "^0.50.7",
+    "wechaty": "^0.56",
     "wechaty-puppet-hostie": "^0.10.8",
     "xml2js": "^0.4.23"
   },
