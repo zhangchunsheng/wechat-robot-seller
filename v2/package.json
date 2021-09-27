@@ -28,7 +28,7 @@
   "homepage": "https://github.com/zhangchunsheng/wechat-robot-seller#readme",
   "dependencies": {
     "qrcode-terminal": "^0.12.0",
-    "wechaty": "^0.50.7",
+    "wechaty": "^0.56",
     "wechaty-plugin-contrib": "^0.14.15"
   },
   "devDependencies": {
