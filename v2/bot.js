@@ -1,4 +1,5 @@
 const { Wechaty } = require('wechaty');
+const { PuppetPadlocal } = require('wechaty-puppet-padlocal');
 const { ScanStatus } = require('wechaty-puppet');
 const QrcodeTerminal = require('qrcode-terminal');
 const Parser = require('./msg-parser');
@@ -9,7 +10,7 @@ const DBUtils = require('./db-utils');
 const RoomID = require('./roomid.json');
 
 const bot = new Wechaty({
-    puppet: 'wechaty-puppet-hostie'
+    puppet: 'wechaty-puppet-wechat'
 });
 
 bot
