@@ -13,7 +13,9 @@
     "start:ts": "cross-env WECHATY_LOG=verbose node -r ts-node/register examples/ding-dong-bot.ts",
     "test": "npm run lint && npm run test:version && npm run test:smoke",
     "test:smoke": "node tests/smoke-testing.js",
-    "test:version": "check-node-version --node \">= 12\""
+    "test:version": "check-node-version --node \">= 12\"",
+    "start-v2": "node bot.js",
+    "puppet-install": "node node_modules/.bin/wechaty-puppet-install"
   },
   "repository": {
     "type": "git",

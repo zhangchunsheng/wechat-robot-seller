@@ -17,6 +17,9 @@
 [wechat-robot-seller_1.0.0.1 2020-12-29 张春生]
 1.新功能:update to donut
 
+[wechat-robot-seller_1.0.0.1 2021-09-28 张春生]
+1.新功能:update wechaty
+
 --备注分类
 1、新功能：
 2、Bug:
