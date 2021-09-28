@@ -54,9 +54,9 @@ exports.doUserCommand = async function (bot, msg) {
         var roomId = RoomID['烙馍省钱体验群'];
         room = await bot.Room.load(roomId);
         if (room) {
-            await room.add(msg.from());
-            await room.say("欢迎新朋友：" + msg.from().name());
-            await room.say(msg.from().name() + "的自我介绍：" + msgText);
+            await room.add(msg.talker());
+            await room.say("欢迎新朋友：" + msg.talker().name());
+            await room.say(msg.talker().name() + "的自我介绍：" + msgText);
         } else {
             console.log("没有找到房间");
         }
@@ -66,19 +66,19 @@ exports.doUserCommand = async function (bot, msg) {
         roomId = CouponRooms[roomIndex];
         room = await bot.Room.load(roomId);
         if (room) {
-            await room.add(msg.from());
-            await room.say("欢迎新朋友：" + msg.from().name());
-            await room.say(msg.from().name() + "的自我介绍：" + msgText);
+            await room.add(msg.talker());
+            await room.say("欢迎新朋友：" + msg.talker().name());
+            await room.say(msg.talker().name() + "的自我介绍：" + msgText);
         } else {
             console.log("没有找到房间");
         }
     } else if(msgText.slice(0,9) === '#joinar') {
         room = await bot.Room.load('烙馍AR');
         if(room) {
-            await room.add(msg.from());
+            await room.add(msg.talker());
         }
     } else if(msgText === '#merge') {
-        fromName = await msg.from().name();
+        fromName = await msg.talker().name();
         if (fromName === "烙馍网") {
             var room0 = await bot.Room.load(CouponRooms[0]);
             var room0list= await room0.memberAll();
@@ -103,7 +103,7 @@ exports.doUserCommand = async function (bot, msg) {
             }
         }
     } else {
-        fromName = await msg.from().name();
+        fromName = await msg.talker().name();
         if (fromName !== "烙馍网" && fromName !== "微信团队") {
             var reply = Dialog.getReply(msgText);
             msg.say(reply);
@@ -114,7 +114,7 @@ exports.doUserCommand = async function (bot, msg) {
 async function sendMsg(bot, msgText, msg) {
     if(msgText.trim() === "mini") {
         const miniProgram = new MiniProgram({
-            appid: process.env.WECHAT_MINI_PROGRAM_APPID, // optional, appid, get from wechat (mp.weixin.qq.com)
+            appid: process.env.WECHAT_MINI_PROGRAM_APPID, // optional, appid, get talker wechat (mp.weixin.qq.com)
             description: "烙馍倾听", // optional, mini program title
             pagePath: "pages/index/index.html", // optional, mini program page path
             thumbUrl: "https://wx1.sinaimg.cn/mw690/46b94231ly1gh0xjf8rkhj21js0jf0xb.jpg", // optional, default picture, convert to thumbnail
@@ -125,7 +125,7 @@ async function sendMsg(bot, msgText, msg) {
     } else if(msgText.trim() !== "") {
         let room;
         const currentRoom = await msg.room().id;
-        const fromName = await msg.from().name();
+        const fromName = await msg.talker().name();
         const url = "https://tb-m.luomor.com/#/searchlist/" + encodeURIComponent(msgText) + "?source=robot";
         //https://docs.chatie.io/api/message
         const urlLink = new UrlLink({
@@ -157,7 +157,7 @@ async function sendMsg(bot, msgText, msg) {
 exports.doRoomCommand = async function (bot, msg) {
     var msgText = await Parser.getMsgText(bot, msg);
     var roomTopic = await msg.room().topic();
-    var fromName = await msg.from().name();
+    var fromName = await msg.talker().name();
     if(WorkergroupLeader[roomTopic]) {
         if(WorkergroupLeader[roomTopic] === fromName || fromName === '烙馍网') {
             if (msgText.slice(0, 4) === "@烙馍网") {
