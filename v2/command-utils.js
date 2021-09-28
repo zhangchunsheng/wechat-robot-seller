@@ -142,13 +142,13 @@ async function sendMsg(bot, msgText, msg) {
                         hasSend = true;
                     }
                     room = await bot.Room.load(roomId);
-                    room.say(urlLink);
+                    room.say(url);
                 }
                 if(!hasSend) {
-                    msg.say(urlLink);
+                    msg.say(url);
                 }
             } else {
-                msg.say(urlLink);
+                msg.say(url);
             }
         }
     }
