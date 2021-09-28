@@ -63,6 +63,10 @@ composer install
 php src/bot.php
 ```
 
+```
+sudo docker build -t wechat-robot-seller .
+```
+
 ### 致谢
 感谢Wechaty团队提供微信机器人SDK，让开发者可以专注于业务代码。<br />感谢句子互动提供的pad协议版token，看到很多基于dll的实现，太费时就没有研究了
 
