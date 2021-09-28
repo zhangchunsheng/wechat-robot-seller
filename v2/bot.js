@@ -71,6 +71,11 @@ bot.start()
     .catch(e => console.error(e));
 
 const kue = require('kue');
+const redis = require('redis');
+kue.redis.createClient = function() {
+    var client = redis.createClient(6379, "172.17.13.198");
+    return client;
+}
 const queue = kue.createQueue();
 queue.process("UserApply", 1, async function (job, done) {
     var work_group = job.data.work_group;
