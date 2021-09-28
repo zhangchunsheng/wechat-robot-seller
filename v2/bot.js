@@ -73,7 +73,9 @@ bot.start()
 const kue = require('kue');
 const redis = require('redis');
 kue.redis.createClient = function() {
-    var client = redis.createClient(6379, "172.17.13.198");
+    var client = redis.createClient({
+        url: 'redis://172.17.13.198:6379',
+    });
     return client;
 }
 const queue = kue.createQueue();
