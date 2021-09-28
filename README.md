@@ -65,6 +65,7 @@ php src/bot.php
 
 ```
 sudo docker build -t wechat-robot-seller .
+sudo docker run wechat-robot-seller
 ```
 
 ### 致谢
